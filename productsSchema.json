@@ -1,0 +1,62 @@
+{
+  "shoes1": {
+    "nomenclature": {
+      "productName": "",
+      "CategoryCode": "",
+      "productIDCode": ""
+    },
+    "feedback": {
+      "reviews": [{"rating": 0, "reviewTitle": "", "reviewText": "", "dateCreated": "", "user": "", "upVotes": 0, "downVotes": 0, "isVerifiedPurchase": false, "isFlaggedSpam": false, "timesReported": 0}],
+      "comments": [{"relativeID": 0, "commentText": "", "user": "", "upVotes": 0, "downVotes": 0, "replyToID": 0, "isFlaggedSpam": false, "timesReported": 0}]
+    },
+    "description": {
+      "card": {
+        "header": "",
+        "body": ""
+      }
+    },
+    "pricing": {
+      "saleTags": [""],
+      "multiDiscounts": [{"numberPurchased": 0, "discount_Percent": 0}],
+      "priceGBP": 0.0,
+      "priceEUR": 0.0,
+      "priceUSD": 0.0
+    },
+    "shippingInfo": {
+      "isFragile": false,
+      "unitWeightKG": 0.0,
+      "unitDims_LWH_Metric_mm": [0.0, 0.0, 0.0],
+      "priceOverride": {
+        "priceGBP": 0.0,
+        "priceEUR": 0.0,
+        "priceUSD": 0.0
+      }
+    },
+    "tagArray": [""],
+    "variants":[
+      {
+        "variantName": "",
+        "description": {
+          "header": "",
+          "body": ""
+        },
+        "pricing": {
+          "priceGBP": null,
+          "priceEUR": null,
+          "priceUSD": null
+        },
+        "shippingInfo": {
+          "isFragile": false,
+          "unitWeightKG": null,
+          "unitDims_LWH_Metric_mm": [null, null, null],
+          "priceOverride": {
+            "priceGBP": 0.0,
+            "priceEUR": 0.0,
+            "priceUSD": 0.0
+          }
+        },
+        "inventory": [{"storeName": "store1", "itemsInStock": 0}]
+      }
+    ]
+  }
+}

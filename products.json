@@ -1,0 +1,80 @@
+{
+  "shoes1": {
+    "nomenclature": {
+      "productName": "Nike Shoes",
+      "CategoryCode": "c-sh",
+      "productIDCode": "nk-1-0"
+    },
+    "feedback": {
+      "reviews": [{"rating": 0, "reviewTitle": "", "reviewText": "", "dateCreated": "", "user": "", "upVotes": 0, "downVotes": 0, "isVerifiedPurchase": false, "isFlaggedSpam": false, "timesReported": 0}],
+      "comments": [{"relativeID": 0, "commentText": "", "user": "", "upVotes": 0, "downVotes": 0, "replyToID": 0, "isFlaggedSpam": false, "timesReported": 0}]
+    },
+    "description": {
+      "imgSources": [""],
+      "card": {
+        "header": "The best shoes you'll buy",
+        "body": "These are the best shoes you'll ever buy, you'll love them and they will solve all of your problems"
+      }
+    },
+    "pricing": {
+      "saleTags": ["hot10"],
+      "multiDiscounts": [{"numberPurchased": 2, "discount_Percent": 10}],
+      "priceGBP": 45.99,
+      "priceEUR": 55.97,
+      "priceUSD": 67.98
+    },
+    "shippingInfo": {
+      "isFragile": false,
+      "unitWeightKG": 1.0,
+      "unitDims_LWH_Metric_mm": [300.0, 220.0, 120.0]
+    },
+    "tagArray": ["shoes", "nike", "summer", "running"],
+    "variants":[
+      {
+        "variantName": "black-blue",
+        "description": {
+          "imgSources": ["assets/nike-shoes.jpg"],
+          "card": {
+            "header": "",
+            "body": ""
+          }
+        },
+        "pricing": {
+          "priceGBP": null,
+          "priceEUR": null,
+          "priceUSD": null
+        },
+        "shippingInfo": {
+          "isFragile": false,
+          "unitWeightKG": null,
+          "unitDims_LWH_Metric_mm": [null, null, null]
+        },
+        "inventory": [{"storeName": "store1", "itemsInStock": 6}],
+        "sizes": ["sm", "md", "lg", "xl"]
+      },
+      {
+        "variantName": "black-red",
+        "description": {
+          "imgSources": ["assets/nike-shoes-red.jpg"],
+          "card": {
+            "header": "",
+            "body": ""
+          }
+        },
+        "pricing": {
+          "priceGBP": null,
+          "priceEUR": null,
+          "priceUSD": null
+        },
+        "shippingInfo": {
+          "isFragile": false,
+          "unitWeightKG": null,
+          "unitDims_LWH_Metric_mm": [null, null, null]
+        },
+        "inventory": [{"storeName": "store1", "itemsInStock": 2}],
+        "sizes": ["sm", "md", "lg"]
+      }
+      
+    ]
+  }
+}

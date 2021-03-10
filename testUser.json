@@ -1,0 +1,41 @@
+{
+    "name": "Tom Hayton",
+    "id": "1",
+    "dateJoined": "",
+    "subscriptions": {
+      "serviceTier": "",
+      "billingFreq_months": 0,
+      "isNewsletterSubscribed": false
+    },
+    "contact": {
+      "email": "",
+      "phone": {
+        "home": "",
+        "mobile": "",
+        "work": ""
+      }
+    },
+    "address": [
+      {
+        "buildingNumber": "",
+        "street": "",
+        "town": "",
+        "city": "",
+        "state": "",
+        "Country": "",
+        "zipCode": ""
+      }
+    ],
+    "paymentDetails": [
+      {
+
+      }
+    ],
+    "history": {
+      "orders": ["ORDER_ID"],
+      "reviews": ["REVIEW_ID"]
+    },
+    "basket": [{"productID": "nk-1-0", "quantity": 2, "dateAdded": ""},{"productID": "foo", "quantity": 1, "dateAdded": ""},{"productID": "bar", "quantity": 1, "dateAdded": ""}],
+    "wishlist": [{"productID": "", "quantity": 0, "dateAdded": ""}]
+  
+}

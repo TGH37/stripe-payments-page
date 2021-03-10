@@ -1,0 +1,42 @@
+{
+  "user1": {
+    "name": "",
+    "id": "",
+    "dateJoined": "",
+    "subscriptions": {
+      "serviceTier": "",
+      "billingFreq_months": 0,
+      "isNewsletterSubscribed": false
+    },
+    "contact": {
+      "email": "",
+      "phone": {
+        "home": "",
+        "mobile": "",
+        "work": ""
+      }
+    },
+    "address": [
+      {
+        "buildingNumber": "",
+        "street": "",
+        "town": "",
+        "city": "",
+        "state": "",
+        "Country": "",
+        "zipCode": ""
+      }
+    ],
+    "paymentDetails": [
+      {
+
+      }
+    ],
+    "history": {
+      "orders": ["ORDER_ID"],
+      "reviews": ["REVIEW_ID"]
+    },
+    "basket": [{"productID": "", "quantity": 0, "dateAdded": ""}],
+    "wishlist": [{"productID": "", "quantity": 0, "dateAdded": ""}]
+  }
+}

@@ -1,0 +1,45 @@
+<div class="card overflow-hidden">
+  <h3 class='card-title p-2 m-0 bg-primary text-white'>{{shoes1.nomenclature.productName}}</h3>
+  <div class="card-body">
+    <div class="position-relative mb-2 overflow-hidden">
+      <img class="img-fluid rounded-circle" src="/assets/nike-shoes.jpg"/>
+      <button class="btn btn-primary position-absolute" style="bottom: 5%; right: 5%">Visit Page</button>
+    </div>
+    <div>
+      <h5>{{shoes1.description.card.header}}</h5>
+      <p>{{shoes1.description.card.body}}</p>
+    </div>
+    <div class="row align-items-center justify-content-around mb-4">
+      <button class="col btn btn-light me-1 d-flex flex-row align-items-center justify-content-center">
+        <i class="bi-star-fill" style="font-size: 1.5rem; color: gold;"></i>
+        <span class="ps-1">{{shoes1.feedback.reviews.length}}</span>
+      </button>
+      <button class="col btn btn-light me-1 d-flex flex-row align-items-center justify-content-center">
+        <i class="bi-chat-dots" style="font-size: 1.5rem; color: black;"></i>
+        <span class="ps-1">{{shoes1.feedback.comments.length}}</span>
+      </button>
+      <button class="col btn btn-light d-flex flex-row align-items-center justify-content-center">
+        <i class="bi-share" style="font-size: 1.5rem; color: black;"></i>
+      </button>
+    </div>
+    
+    <div class="container">
+      {{> product/cardVariantTab}}
+      
+      <div class="row align-items-end">
+        <div class="col-9">
+          <h5 class="text-decoration-line-through">£{{shoes1.pricing.priceGBP}}</h5>
+          <div class="d-flex flex-row align-items-end">
+            <h2>£{{shoes1.pricing.priceGBP}}</h2>
+            <small class="ps-2">(£{{shoes1.pricing.priceGBP}} Each)</small>
+          </div>
+        </div>
+        <div class="col-2 p-2 d-flex flex-row align-items-center">
+          <button type="button" class="btn btn-outline-secondary " id="cardDecBtn">-</button>
+          <span class="ps-2 pe-2 cust_qty" id="cardQuantity">2</span>
+          <button type="button" class="btn btn-outline-secondary " id="cardIncBtn">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

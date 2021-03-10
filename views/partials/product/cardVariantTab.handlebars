@@ -1,0 +1,34 @@
+<div class="mb-2">
+        <button class="btn btn-primary me-1">tab1</button>
+      </div>
+      <form class="mb-4">
+        <div class="row row-cols-2  gy-2 align-items-center">
+          <label class="col-3 text-end">Variant:</label>
+          
+          <div class="col-9">
+            <button class="btn btn-outline-secondary dropdown-toggle w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              Please choose variant
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              {{#each shoes1.variants}}
+                <li><a class="dropdown-item">{{this.variantName}}</a></li>
+              {{/each}}
+            </ul>
+          </div>
+          
+          <label class="col-3 text-end">Size:</label>
+          
+          <div class="col-9">
+            <div class="dropdown">
+              <button class="btn btn-outline-secondary dropdown-toggle w-100" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                Pick a size
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                <li><a class="dropdown-item">sm</a></li>
+                <li><a class="dropdown-item">md</a></li>
+                <li><a class="dropdown-item">lg</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </form>
