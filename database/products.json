@@ -1,5 +1,5 @@
 {
-  "shoes1": {
+  "nk-1-0": {
     "nomenclature": {
       "productName": "Nike Shoes",
       "CategoryCode": "c-sh",
@@ -29,6 +29,7 @@
       "unitDims_LWH_Metric_mm": [300.0, 220.0, 120.0]
     },
     "tagArray": ["shoes", "nike", "summer", "running"],
+    "availableVariantNames": ["black-blue", "black-red", "blue-green"],
     "variants":[
       {
         "variantName": "black-blue",
@@ -62,7 +63,7 @@
           }
         },
         "pricing": {
-          "priceGBP": null,
+          "priceGBP": 53.99,
           "priceEUR": null,
           "priceUSD": null
         },

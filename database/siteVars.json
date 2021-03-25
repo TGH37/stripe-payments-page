@@ -1,0 +1,26 @@
+{
+  "saleCodes": {
+    "universal": {
+      "discount_Percent": 12
+    },
+    "individualProducts": [
+      {
+        "code": "NIKEShoes15",
+        "discount_Percent": 15,
+        "productIDArry": ["nk-1-0"]
+      }
+    ],
+    "tagged": [
+      {
+        "code": "NIKE15",
+        "discount_Percent": 10 ,
+        "tagsAppliedTo": ["nike"]
+      },
+      {
+        "code": "SHOES69",
+        "discount_Percent": 5 ,
+        "tagsAppliedTo": ["shoes"]
+      }
+    ]
+  }
+}
