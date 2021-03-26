@@ -2,16 +2,12 @@ import { useContext } from 'react'
 
 import { GlobalContext } from '../contexts/globalState'
 import BasketVariantRow from './BasketVariantRow'
+import useDiscount from '../hooks/useDiscount'
 
 function BasketRow({ idx, name, localePrice, variants, productID }) {
   const qty = variants.length
-  const { setHoverBasketProductIndex,
-          activeBasketProductIndex,
-          // basketItemsArry,
-          sumVariantPrices, 
-          computeLowestDiscountPrice } = useContext(GlobalContext)
-  const maxDiscount = computeLowestDiscountPrice(productID)
-  const productTotalPrice = sumVariantPrices();
+  const { setHoverBasketProductIndex, activeBasketProductIndex } = useContext(GlobalContext)
+  const priceData = useDiscount();
     
   const variantRows = () => 
   variants.map((variant, variantIdx) => 
@@ -24,7 +20,6 @@ function BasketRow({ idx, name, localePrice, variants, productID }) {
       productID={productID}
     />)
   
-  const discountedProductTotalPrice = productTotalPrice - (productTotalPrice * ( maxDiscount / 100));
 
   const hoverHandler = () => {
     setHoverBasketProductIndex((prev) => {
@@ -45,9 +40,9 @@ function BasketRow({ idx, name, localePrice, variants, productID }) {
       >
         <th scope="row">{idx + 1}</th>
         <td>{name}</td>
-        <td>£{discountedProductTotalPrice.toFixed(2)}</td>
+        <td>£{priceData.discountedTotalPrice}</td>
         <td>{qty}</td>
-        <td>£{discountedProductTotalPrice.toFixed(2)}</td>
+        <td>£{priceData.discountedTotalPrice}</td>
         <td><input type="checkbox"/></td>
       </tr>
       {variantRows()}

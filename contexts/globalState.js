@@ -2,21 +2,7 @@ import { createContext, useEffect, useState, useRef } from 'react'
 import siteVars from '../database/siteVars.json'
 import productsDB from '../database/products.json'
 import user from '../database/testUser.json'
-// import ProductVariant from '../classes/variant'
-
-class ProductVariant {
-  constructor(name, productObject) {
-      this.variantName = name;
-      this.size = 'md';
-
-      const prodVariant = productObject.variants.find(dbProductVariant => name === dbProductVariant.variantName)
-      if(!prodVariant) return
-      this.pricing = prodVariant.pricing.priceGBP ? prodVariant.pricing : productObject.pricing
-      this.inventory = prodVariant.inventory
-      this.productID = productObject.nomenclature.productIDCode
-      this.availableSizes = prodVariant.sizes
-  }
-}
+import ProductVariant from '../classes/variant'
 
 // filter all database products to those contained in user basket (functionality should be replaced server-side)
 // modify user basket variants data to include more contextual information from db
@@ -39,13 +25,6 @@ const getBasketItemsData = () => {
     const alteredBasketItemVariants = basketProduct.variants.flatMap(basketVariant => {
       const prodVariant = getDatabaseVariantData(dbProduct, basketVariant)
       return new ProductVariant(prodVariant.variantName, dbProduct)
-      // return {
-      //   ...basketVariant, 
-      //   pricing: prodVariant.pricing.priceGBP ? prodVariant.pricing : dbProduct.pricing,
-      //   inventory: prodVariant.inventory,
-      //   productID: dbProduct.nomenclature.productIDCode,
-      //   availableSizes: prodVariant.sizes
-      // };
     });
     return {...basketProduct, variants: alteredBasketItemVariants};
   });
@@ -66,10 +45,10 @@ export const GlobalProvider = ({ children }) => {
   // Action Functions
   const [hoverBasketProductIndex, setHoverBasketProductIndex] = useState(initialState.hoverBasketProductIndex);
   const [activeBasketProductIndex, setActiveBasketProductIndex] = useState(initialState.activeBasketProductIndex);
-  const [activeBasketProduct, setActiveBasketProduct] = useState(initialState.basketProductsFullDBDataArry[initialState.activeBasketProductIndex.productIdx]);
+  const [activeDatabaseProduct, setActiveDatabaseProduct] = useState(initialState.basketProductsFullDBDataArry[initialState.activeBasketProductIndex.productIdx]);
   const [basketItemsArry, setBasketItemsArry] = useState(initialState.basketItemsArry);
 
-  const [activeBasketItem, setActiveBasketItem] = useState({
+  const [activeProductData, setActiveProductData] = useState({
     dbItem: initialState.basketProductsFullDBDataArry[initialState.activeBasketProductIndex.productIdx],
     basketItem: initialState.basketItemsArry[initialState.activeBasketProductIndex.productIdx]
   });
@@ -90,7 +69,7 @@ export const GlobalProvider = ({ children }) => {
     })
 
     setActiveBasketProductIndex({productIdx, variantIdx: basketProduct.variants.length - 1})
-    setActiveBasketItem(
+    setActiveProductData(
       {
         dbItem: initialState.basketProductsFullDBDataArry[initialState.activeBasketProductIndex.productIdx],
         basketItem: basketItemsArry[activeBasketProductIndex.productIdx]
@@ -116,21 +95,16 @@ export const GlobalProvider = ({ children }) => {
     setBasketItemsArry(prev => {
       let returnArry = [...prev]
       returnArry[productIdx.productIdx].variants = newVariantArry
-      console.log('removed')
       return returnArry
     })
 
-    setActiveBasketItem(
-      {
-        dbItem: initialState.basketProductsFullDBDataArry[initialState.activeBasketProductIndex.productIdx],
-        basketItem: basketItemsArry[activeBasketProductIndex.productIdx]
-      }
-    )
+    updateActiveBasketItem()
+    
   }
 
   // returns the basket item data and the full product dataset from the databse, for the active item
   const updateActiveBasketItem = () => {
-    setActiveBasketItem(
+    setActiveProductData(
       {
         dbItem: initialState.basketProductsFullDBDataArry[initialState.activeBasketProductIndex.productIdx],
         basketItem: basketItemsArry[activeBasketProductIndex.productIdx]
@@ -140,7 +114,7 @@ export const GlobalProvider = ({ children }) => {
 
   // returns the total price for the product, summing accross all variants of that product that are in the basket
   const sumVariantPrices = () => {
-    const prices = activeBasketItem.basketItem.variants.map((variant) => variant.pricing.priceGBP)
+    const prices = activeProductData.basketItem.variants.map((variant) => variant.pricing.priceGBP)
     return prices.reduce((tot, curr) => tot += curr);
   };
   
@@ -162,26 +136,24 @@ export const GlobalProvider = ({ children }) => {
   return (
     <GlobalContext.Provider value={
       {
-        hoverBasketProductIndex: hoverBasketProductIndex,
+        hoverBasketProductIndex,
         setHoverBasketProductIndex,
         activeBasketProductIndex,
-        setActiveBasketProductIndex: setActiveBasketProductIndex,
+        setActiveBasketProductIndex,
         
-        activeBasketProduct,
-        setActiveBasketProduct,
-        activeBasketItem,
-        setActiveBasketItem,
+        activeDatabaseProduct,
+        activeProductData,
         
         basketProductsFullDBDataArry: initialState.basketProductsFullDBDataArry,
         basketItemsArry,
         setBasketItemsArry,
         
+        sales: initialState.saleCodes,
         addVariant,
         removeVariant,
         updateActiveBasketItem,
         sumVariantPrices,
         computeLowestDiscountPrice,
-        // ProductVariant
       }
     }>
       {children}

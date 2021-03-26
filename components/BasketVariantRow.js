@@ -1,6 +1,7 @@
 import { useContext, useEffect } from 'react'
 
 import { GlobalContext } from '../contexts/globalState'
+import useDiscount from '../hooks/useDiscount'
 
 function BasketVariantRow({ data, nominalPrice, idx, parentIdx, productID }) {
   const { hoverBasketProductIndex, setHoverBasketProductIndex, activeBasketProductIndex, setActiveBasketProductIndex, computeLowestDiscountPrice } = useContext(GlobalContext);
