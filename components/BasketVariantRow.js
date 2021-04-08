@@ -1,43 +1,53 @@
-import { useContext, useEffect } from 'react'
+import { useContext, useState } from 'react'
+import styles from '../styles/Home.module.css'
 
 import { GlobalContext } from '../contexts/globalState'
-import useDiscount from '../hooks/useDiscount'
+import { PricingContext } from '../contexts/pricingState'
 
 function BasketVariantRow({ data, nominalPrice, idx, parentIdx, productID }) {
-  const { hoverBasketProductIndex, setHoverBasketProductIndex, activeBasketProductIndex, setActiveBasketProductIndex, computeLowestDiscountPrice } = useContext(GlobalContext);
-  const variantPrice = data.pricing.priceGBP ? data.pricing.priceGBP : nominalPrice
-
+  const { hoverBasketProductIndex, setHoverBasketProductIndex, activeBasketProductIndex, setActiveBasketProductIndex, addVariant } = useContext(GlobalContext);
+  const { productTotalPricingData } = useContext(PricingContext);
+  const [shouldDisplayAddSymbol, setShouldDisplayAddSymbol] = useState(false);
   const semanticIdx = parseFloat(parentIdx + 1) + ((idx + 1) / 10);
-
-  const maxDiscount = computeLowestDiscountPrice(productID)
-  const discountedVariantPrice = variantPrice - (variantPrice * ( maxDiscount / 100));
-  
+ 
+  // const styles = 'cursor-pointer '
   const hoverHandler = () => {
     setHoverBasketProductIndex({productIdx: parentIdx, variantIdx: idx});
+    setShouldDisplayAddSymbol(true);
   }
-
+  
   const mouseLeaveHandler = () => {
-     setHoverBasketProductIndex({productIdx: activeBasketProductIndex.productIdx, variantIdx: activeBasketProductIndex.variantIdx});
+    setHoverBasketProductIndex({productIdx: activeBasketProductIndex.productIdx, variantIdx: activeBasketProductIndex.variantIdx});
+    setShouldDisplayAddSymbol(false);
   }
 
-  const clickHandler = () => {
+  const rowClickHandler = () => {
     setActiveBasketProductIndex(hoverBasketProductIndex)
   }
+
+  const addSymbolClickHandler = () => {
+    addVariant()
+  }
+
+  const addSymbol = <i className={`bi bi-plus-circle ${styles.plusIcon}`} onClick={() => addSymbolClickHandler()}></i>
 
   return (
     // <tr className="table-success table-striped fw-light text-muted" onMouseEnter={() => hoverHandler()} onMouseLeave={() => mouseLeaveHandler()}>
     <tr 
-      className={idx === activeBasketProductIndex.variantIdx ? "table-danger" : ""} 
+      // className="table-success table-striped fw-light text-muted"
+      className={idx === activeBasketProductIndex.variantIdx ? `table-danger ${styles.variantTableRow}`  : `${styles.variantTableRow}`}
+      id="variantTableRow"
       onMouseEnter={() => hoverHandler()} 
       onMouseLeave={() => mouseLeaveHandler()}
-      onClick={() => clickHandler()}
+      onClick={() => rowClickHandler()}
     >
-      <th scope="row" className='ps-4'>{semanticIdx}</th>
-      <td className='ps-4'>{data.variantName}</td>
-      <td className='ps-4'>£{discountedVariantPrice.toFixed(2)}</td>
-      <td className='ps-4'></td>
-      <td className='ps-4'>£{discountedVariantPrice.toFixed(2)}</td>
-      <td className='ps-4'><input type="checkbox"/></td>
+      <th className={`${styles.plusIcon}`}scope="row">{shouldDisplayAddSymbol ? addSymbol : <i className={styles.spacer}></i>}</th>
+      <td className={`ps-4`} scope="row" >{semanticIdx}</td>
+      <td className={`ps-4`}>{data.variantName}</td>
+      <td className={`ps-4`}>£{productTotalPricingData.priceArry_discounted[idx]}</td>
+      <td className={`ps-4`}></td>
+      <td className={`ps-4`}>£{productTotalPricingData.priceArry_discounted[idx]}</td>
+      <td className={`ps-4`}><input type="checkbox"/></td>
     </tr>
   )
 }

@@ -1,19 +1,20 @@
 import { useContext, useEffect, useState } from 'react'
 
 import { GlobalContext } from '../contexts/globalState'
+import { PricingContext } from '../contexts/pricingState'
 import ProductVariant from '../classes/variant'
-import useDiscount from '../hooks/useDiscount'
 
 function ProductCardPricing() {
   const { activeProductData, 
           activeBasketProductIndex, 
+          hoverBasketProductIndex, 
           updateActiveBasketItem, 
           setActiveBasketProductIndex, 
           setHoverBasketProductIndex, 
           addVariant,
           removeVariant } = useContext(GlobalContext);
 
-  const priceData = useDiscount();
+  const { productTotalPricingData } = useContext(PricingContext);
 
   const [count, setCount] = useState(activeProductData.basketItem.variants.length);
   
@@ -36,13 +37,12 @@ function ProductCardPricing() {
     <div className="row align-items-end">
       <div className="col-9">
         <div className='d-flex flex-gap'>
-          <h5 className="text-decoration-line-through text-danger">£{priceData.totalPrice}</h5>
-          <h5 className="ps-2">£{priceData.discountedTotalPrice}</h5>
-
+          <h5 className="text-decoration-line-through text-danger">£{productTotalPricingData.priceArry[hoverBasketProductIndex.variantIdx]}</h5>
+          {/* <h5 className="ps-2">£{productTotalPricingData.priceArry_discounted[hoverBasketProductIndex.variantIdx]}</h5> */}
         </div>
         <div className="d-flex flex-row align-items-end">
-          <h2>£{priceData.discountedVariantPrice}</h2>
-          <small className="ps-2">(Avg: £{priceData.averagePrice} Each)</small>
+          <h2>£{productTotalPricingData.priceArry_discounted[hoverBasketProductIndex.variantIdx]}</h2>
+          <small className="ps-2">(Avg: £{productTotalPricingData.avg_discounted} Each)</small>
         </div>
       </div>
       <div className="col-2 p-2 d-flex flex-row align-items-center">

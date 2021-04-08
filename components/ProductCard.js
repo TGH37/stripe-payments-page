@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState, useRef } from 'react'
 
 import {GlobalContext} from '../contexts/globalState'
 import Image from 'next/image'
@@ -11,9 +11,31 @@ function ProductCard() {
   const imgSrc = `/../public/${currentVariant.imgSrcs}`
   const [formSelection, setFormSelection] = useState({variantName: currentVariant.variantName, size: currentVariant.size})
 
+  const btnTabRef = useRef(null)
+  const [activeBtn, setActiveBtn] = useState()
+
+  const switchActiveTabs = (newActiveBtn) => {
+    if(!activeBtn) {setActiveBtn(newActiveBtn); return}
+    setActiveBtn(prev => {
+      prev.classList.remove('active');
+      newActiveBtn.classList.add('active');
+      return newActiveBtn
+    })
+  }
+
   useEffect(() => {
     setFormSelection({variantName: currentVariant.variantName, size: currentVariant.size});
+    switchActiveTabs(btnTabRef.current.children[hoverBasketProductIndex.variantIdx])
   }, [hoverBasketProductIndex])
+
+  useEffect(() => {
+    setActiveBtn(btnTabRef.current.children[hoverBasketProductIndex.variantIdx]);
+  },[])
+
+  useEffect(() => {
+    if(!activeBtn || activeBtn.classList.contains('active')) return
+    activeBtn.classList.add('active');
+  }, [activeBtn])
 
   const tabHoverHandler = (idx) => {
     setHoverBasketProductIndex({productIdx: activeBasketProductIndex.productIdx, variantIdx: idx});
@@ -22,12 +44,13 @@ function ProductCard() {
   const tabMouseLeaveHandler = () => {
      setHoverBasketProductIndex({productIdx: activeBasketProductIndex.productIdx, variantIdx: activeBasketProductIndex.variantIdx});
   }
-  const tabClickHandler = () => {
+  const tabClickHandler = (e) => {
+    switchActiveTabs(e.target)
     setActiveBasketProductIndex(hoverBasketProductIndex)
   }
 
   return (
-    <div className="card overflow-hidden">
+    <div className="card  overflow-hidden">
       <h3 className='card-title p-2 m-0 bg-primary text-white'>{activeDatabaseProduct.nomenclature.productName}</h3>
       <div className="card-body">
         <div className="position-relative mb-2 overflow-hidden" style={{width: "100%"}}>
@@ -53,7 +76,7 @@ function ProductCard() {
         </div>
         
         <div className="container">
-          <div className="mb-2">
+          <div className="mb-2" ref={btnTabRef}>
             {activeProductData.basketItem.variants.map((btn, idx) => 
               {
                 return <button 
@@ -61,7 +84,7 @@ function ProductCard() {
                           key={idx}
                           onMouseEnter={() => tabHoverHandler(idx)} 
                           onMouseLeave={() => tabMouseLeaveHandler()}
-                          onClick={() => tabClickHandler()}
+                          onClick={(e) => tabClickHandler(e)}
                         >tab{idx + 1}</button>
               })
             }           

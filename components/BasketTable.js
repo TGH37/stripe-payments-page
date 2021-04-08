@@ -27,6 +27,7 @@ function BasketTable() {
     <table className="table table-striped table-hover text-capitalize text-center">
       <thead>
         <tr>
+          <th scope="col"></th>
           <th scope="col">#</th>
           <th scope="col">Item</th>
           <th scope="col">Price</th>
@@ -35,7 +36,7 @@ function BasketTable() {
           <th scope="col">Delete</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody style={{position: "relative"}}>
         { basketProductComponentRows }
       </tbody>
     </table>

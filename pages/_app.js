@@ -1,8 +1,10 @@
 import '../styles/globals.css'
 import Head from 'next/head'
 import { GlobalProvider } from '../contexts/globalState'
+import { PricingProvider } from '../contexts/pricingState'
 
 function MyApp({ Component, pageProps }) {
+  
   return (
     <>
       <GlobalProvider>
@@ -13,7 +15,9 @@ function MyApp({ Component, pageProps }) {
           <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css"/>
 
         </Head>
-        <Component {...pageProps} />
+        <PricingProvider>
+          <Component {...pageProps} />
+        </PricingProvider>
       </GlobalProvider>
     </>
   )

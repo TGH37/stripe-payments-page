@@ -19,7 +19,7 @@
     "pricing": {
       "saleTags": ["hot10"],
       "multiDiscounts": [{"numberPurchased": 2, "discount_Percent": 10}],
-      "priceGBP": 45.99,
+      "priceGBP": 0.3,
       "priceEUR": 55.97,
       "priceUSD": 67.98
     },
@@ -63,7 +63,7 @@
           }
         },
         "pricing": {
-          "priceGBP": 53.99,
+          "priceGBP": 0.45,
           "priceEUR": null,
           "priceUSD": null
         },

@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState, useRef } from 'react'
+
 import siteVars from '../database/siteVars.json'
 import productsDB from '../database/products.json'
 import user from '../database/testUser.json'
@@ -30,6 +31,8 @@ const getBasketItemsData = () => {
   });
 }
 
+
+
 const initialState = {
   ...siteVars,
   activeBasketProductIndex: {productIdx: 0, variantIdx: 0},
@@ -41,7 +44,6 @@ const initialState = {
 export const GlobalContext = createContext(initialState);
 
 export const GlobalProvider = ({ children }) => {
-
   // Action Functions
   const [hoverBasketProductIndex, setHoverBasketProductIndex] = useState(initialState.hoverBasketProductIndex);
   const [activeBasketProductIndex, setActiveBasketProductIndex] = useState(initialState.activeBasketProductIndex);
@@ -54,7 +56,8 @@ export const GlobalProvider = ({ children }) => {
   });
 
   // Updates the items in the user's basket
-  const addVariant = (newVariant) => {
+  const addVariant = async (newVariant=null) => {
+    if(!newVariant) newVariant = new ProductVariant('black-red', activeProductData.dbItem)
     const basketProduct = basketItemsArry.find(basketItem => basketItem.productID === newVariant.productID);
     const productIdx = basketItemsArry.indexOf(basketProduct)
 
@@ -62,7 +65,7 @@ export const GlobalProvider = ({ children }) => {
     const newProduct = Object.assign({}, basketProduct)
     newProduct.variants = [...basketProduct.variants, newVariant]
 
-    setBasketItemsArry(prev => {
+    await setBasketItemsArry(prev => {
       let returnArry = [...prev]
       returnArry[productIdx] = newProduct
       return returnArry
@@ -112,27 +115,6 @@ export const GlobalProvider = ({ children }) => {
     )
   }
 
-  // returns the total price for the product, summing accross all variants of that product that are in the basket
-  const sumVariantPrices = () => {
-    const prices = activeProductData.basketItem.variants.map((variant) => variant.pricing.priceGBP)
-    return prices.reduce((tot, curr) => tot += curr);
-  };
-  
-  // returns an array of all discounts currently applied to each tag attributed to the selected product.
-  const findTaggedSale = (productID) => {
-    const allDiscounts = initialState.basketProductsFullDBDataArry.flatMap( product => {
-      if(productID !== product.nomenclature.productIDCode) return
-        return product.tagArray.flatMap(productTag => {
-          const taggedSale = initialState.saleCodes.tagged.find(currentTag => currentTag.tagsAppliedTo.includes(productTag));
-          return taggedSale ? taggedSale.discount_Percent : []
-        });
-      })
-      return allDiscounts.length !== 1 ? allDiscounts.reduce((currentMax, value) => value > currentMax ? value : currentMax) : allDiscounts[0];
-  }
-  
-  // returns the highest discounted amount (percentage), accounting for global sale codes and sale codes applied specifically to the selected product
-  const computeLowestDiscountPrice = (productID) => Math.max(initialState.saleCodes.universal.discount_Percent, findTaggedSale(productID))
-
   return (
     <GlobalContext.Provider value={
       {
@@ -152,8 +134,6 @@ export const GlobalProvider = ({ children }) => {
         addVariant,
         removeVariant,
         updateActiveBasketItem,
-        sumVariantPrices,
-        computeLowestDiscountPrice,
       }
     }>
       {children}

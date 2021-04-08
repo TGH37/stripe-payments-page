@@ -1,13 +1,16 @@
 import { useContext } from 'react'
+import styles from '../styles/Home.module.css'
 
 import { GlobalContext } from '../contexts/globalState'
+import { PricingContext } from '../contexts/pricingState'
 import BasketVariantRow from './BasketVariantRow'
-import useDiscount from '../hooks/useDiscount'
 
 function BasketRow({ idx, name, localePrice, variants, productID }) {
   const qty = variants.length
   const { setHoverBasketProductIndex, activeBasketProductIndex } = useContext(GlobalContext)
-  const priceData = useDiscount();
+  const { getProductTotalPricingData } = useContext(PricingContext);
+
+  const priceData = getProductTotalPricingData(productID);
     
   const variantRows = () => 
   variants.map((variant, variantIdx) => 
@@ -22,10 +25,7 @@ function BasketRow({ idx, name, localePrice, variants, productID }) {
   
 
   const hoverHandler = () => {
-    setHoverBasketProductIndex((prev) => {
-      console.log({productIdx: idx, ...prev})
-      return {productIdx: idx, ...prev}
-    });
+    setHoverBasketProductIndex((prev) => {return {productIdx: idx, ...prev}});
   }
   const mouseLeaveHandler = () => {
     setHoverBasketProductIndex(activeBasketProductIndex)
@@ -38,11 +38,12 @@ function BasketRow({ idx, name, localePrice, variants, productID }) {
         onMouseLeave={() => mouseLeaveHandler()} 
         className={idx === activeBasketProductIndex.productIdx ? "table-danger" : ""}
       >
-        <th scope="row">{idx + 1}</th>
+        <th scope="row"></th>
+        <td>{idx + 1}</td>
         <td>{name}</td>
-        <td>£{priceData.discountedTotalPrice}</td>
+        <td>£{priceData.sum_discounted}</td>
         <td>{qty}</td>
-        <td>£{priceData.discountedTotalPrice}</td>
+        <td>£{priceData.sum_discounted}</td>
         <td><input type="checkbox"/></td>
       </tr>
       {variantRows()}
