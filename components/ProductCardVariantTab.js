@@ -25,7 +25,7 @@ function ProductCardVariantTab({ formSelection }) {
       
       <div className="col-9">
         <div className="dropdown">
-          <select className="form-select" aria-label="Default select example" value={formSelection.size}>
+          <select className="form-select" aria-label="Default select example" defaultValue={formSelection.size}>
           { activeVariant.availableSizes.map((size, idx) => <option key={idx} value={size}>{size}</option>) }
         </select>
         </div>

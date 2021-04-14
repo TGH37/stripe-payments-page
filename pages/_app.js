@@ -2,9 +2,12 @@ import '../styles/globals.css'
 import Head from 'next/head'
 import { GlobalProvider } from '../contexts/globalState'
 import { PricingProvider } from '../contexts/pricingState'
+import { SubscriptionProvider } from '../contexts/subscriptionState'
+import Navbar from '../components/Navbar'
 
-function MyApp({ Component, pageProps }) {
-  
+
+function MyApp({ Component, pageProps,}, {props: isConnected }) {
+
   return (
     <>
       <GlobalProvider>
@@ -16,7 +19,11 @@ function MyApp({ Component, pageProps }) {
 
         </Head>
         <PricingProvider>
+          <SubscriptionProvider>
+
+          <Navbar/>
           <Component {...pageProps} />
+          </SubscriptionProvider>
         </PricingProvider>
       </GlobalProvider>
     </>

@@ -118,17 +118,14 @@ export const GlobalProvider = ({ children }) => {
   return (
     <GlobalContext.Provider value={
       {
-        hoverBasketProductIndex,
-        setHoverBasketProductIndex,
-        activeBasketProductIndex,
-        setActiveBasketProductIndex,
+        hoverBasketProductIndex, setHoverBasketProductIndex,
+        activeBasketProductIndex, setActiveBasketProductIndex,
         
         activeDatabaseProduct,
         activeProductData,
         
         basketProductsFullDBDataArry: initialState.basketProductsFullDBDataArry,
-        basketItemsArry,
-        setBasketItemsArry,
+        basketItemsArry, setBasketItemsArry,
         
         sales: initialState.saleCodes,
         addVariant,

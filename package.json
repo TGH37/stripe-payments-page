@@ -9,7 +9,11 @@
     "test": "jest"
   },
   "dependencies": {
+    "@popperjs/core": "^2.9.2",
     "@stripe/stripe-js": "^1.13.2",
+    "bootstrap": "^5.0.0-beta3",
+    "bootstrap-icons": "^1.4.1",
+    "mongodb": "^3.6.6",
     "next": "10.0.8",
     "react": "17.0.1",
     "react-dom": "17.0.1",
